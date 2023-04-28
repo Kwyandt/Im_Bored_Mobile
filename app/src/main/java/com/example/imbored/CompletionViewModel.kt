@@ -1,4 +1,4 @@
-package com.example.imbored.ui.home
+package com.example.imbored
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,27 +11,16 @@ import com.example.imbored.network.API
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
+import retrofit2.Retrofit
 import java.io.IOException
 
-class HomeViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
-    // My edits
+class CompletionViewModel : ViewModel() {
     private val _answer = MutableLiveData<Call<CompletionResponse>>()
     val answer: LiveData<Call<CompletionResponse>>  = _answer
 
-
-    // Variable to hold the answer as a String, not editing actual data so mutable
-    var answerString: String = getCompletion("Say hi!")
-
-    // Function to get a text completion from OpenAI completion model (text-davinci-003)
     fun getCompletion(input: String): String {
         // Hold the desired response String
-//        var completion: String = ""
+        val choice: String = ""
         viewModelScope.launch(Dispatchers.IO) {
             val request = CompletionRequest(
                 prompt = input,
@@ -42,9 +31,8 @@ class HomeViewModel : ViewModel() {
                 val call = API.retrofitService.getCompletion(request)
                 val response = call.execute()
                 if (response.isSuccessful) {
-                    answerString = response.body()?.choices?.get(0).toString()
-                    Log.d("CatAppViewModel", answerString)
-
+                    val choice = response.body()?.choices?.get(0)
+                    Log.d("CatAppViewModel", "choice")
                     // set the idea in the View Model
 //                    viewModelScope.launch(Dispatchers.Main) {
 //                        activityIdea?.text?.let{
@@ -52,11 +40,15 @@ class HomeViewModel : ViewModel() {
 //                        }
 //                    }
                 }
+                _answer.value = API.retrofitService.getCompletion(request)
             } catch (e: IOException) {
                 Log.d("CatAppViewModel", "API fail")
-
+//            viewModelScope.launch(Dispatchers.Main) {
+//                answer = "Error: ${response.code()} - ${response.message()}"
+//            }
             }
         }
-        return answerString
+        return choice
     }
+
 }
