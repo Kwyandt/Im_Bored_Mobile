@@ -1,4 +1,4 @@
-package com.example.imbored.ui.Gallery
+package com.example.imbored.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
