@@ -12,5 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/covered_by_your_grace</item>
+        <item name="android:fontFamily">@font/covered_by_your_grace</item>
     </style>
 </resources>
