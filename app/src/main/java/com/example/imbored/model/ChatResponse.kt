@@ -1,7 +1,7 @@
 package com.example.imbored.model
 
 /**
- * Data class that defines a text-completion for OpenAI completion models
+ * Data class that defines a text-completion, which includes an id,image URL, and sizing.
  */
 
 data class CompletionRequest(
@@ -13,8 +13,8 @@ data class CompletionRequest(
     val frequency_penalty: Int,
     // Control the randomness (0-1, 1 most random)
     val temperature: Int,
-    // Generate multiple responses and chose the best
-    val best_of: Int,
+//    // Generate multiple responses and chose the best
+//    val best_of: Int,
     // Control diversity of answers based on what percentage of next tokens to consider
     val top_p: Int
 )

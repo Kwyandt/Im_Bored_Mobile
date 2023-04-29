@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imbored.R
 
 /**
- * Adapter for the [RecyclerView] in [MainActivity]. Displays [Affirmation] data object.
+ * Adapter for the [RecyclerView] in [MainActivity]. Displays [ActivityPhoto] data object.
  */
 class ItemAdapter(
     private val context: GalleryFragment,
-    private val dataset: List<Affirmation>
+    private val dataset: List<ActivityPhoto>
 ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     // Provide a reference to the views for each data item
