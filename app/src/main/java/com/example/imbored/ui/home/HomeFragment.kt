@@ -15,6 +15,7 @@ private const val INITIAL_PROMPT: String = "The following is a conversation with
         "The assistant is helpful, creative, clever, very friendly, but never uses more than 10 words to respond." +
         " The assistant should generate unique, brief ideas of activities that the human could do when they are bored. " +
         "\n\nHuman: Hello, I'm bored. What should I do today?\nGo on a bike ride!\nHuman: "
+
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -29,20 +30,15 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 //        UI bound objects
         val generatedTextView: TextView = binding.generatedIdeaTextView
         val imageView: ImageView = binding.pandaImageView
-
         imageView.setOnClickListener{
             homeViewModel.getCompletion(chatHistory+"Give me another activity, but don't repeat: ")
         }
-
         homeViewModel.answerString.observe(viewLifecycleOwner) {
             generatedTextView.text = it
         }
-
-
         return root
     }
 
