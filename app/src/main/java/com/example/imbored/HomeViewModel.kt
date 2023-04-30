@@ -1,3 +1,7 @@
+/**
+ * Sophie Azula, 4/29/30
+ * ViewModel for the [HomeFragment] functionality
+ */
 package com.example.imbored
 
 import android.util.Log

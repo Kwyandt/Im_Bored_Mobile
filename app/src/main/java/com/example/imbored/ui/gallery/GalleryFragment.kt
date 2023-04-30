@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imbored.CameraActivity
+import com.example.imbored.CameraFragment
+import com.example.imbored.GalleryViewModel
 import com.example.imbored.databinding.FragmentGalleryBinding
 
 
@@ -27,9 +29,21 @@ class GalleryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+            ViewModelProvider(this)[GalleryViewModel::class.java]
+
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        recyclerView = binding.recyclerView
+
+        // TODO: Using binding instead, come back if needed
+        //        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = GalleryImageListAdapter()
+        recyclerView.adapter = adapter
+
+//        val view: View = inflater.inflate(R.layout.fragment_gallery,container, false)
+//        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+//        recyclerView.layoutManager = LinearLayoutManager(view.context)
 
         //UI Bound Object
 
@@ -44,15 +58,16 @@ class GalleryFragment : Fragment() {
             startActivity(intent)
         }
 
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = LoggedActivityListAdapter()
-        recyclerView.adapter = adapter
+        // TODO: Moving to onCreate
+////        recyclerView = binding.recyclerView
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        val adapter = LoggedActivityListAdapter()
+//        recyclerView.adapter = adapter
         Log.d("GALLERYFRAGMENT", "onViewCreated: IT'S CREATED ")
     }
 

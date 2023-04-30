@@ -34,6 +34,7 @@
         android:layout_width="407dp"
         android:layout_height="678dp"
         android:scrollbars="vertical"
+        android:visibility="visible"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

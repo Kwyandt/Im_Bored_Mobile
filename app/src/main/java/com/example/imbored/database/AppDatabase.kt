@@ -7,15 +7,14 @@ package com.example.imbored.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(LoggedActivity::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(GalleryImage::class), version = 1, exportSchema = false)
 public abstract class AppDatabase :RoomDatabase() {
-    abstract fun loggedActivityDao(): LoggedActivityDao
+    abstract fun galleryImageDao(): GalleryImageDao
     // Companion object to hold singular instance of database
 
     /**
@@ -30,15 +29,15 @@ public abstract class AppDatabase :RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    var loggedActivityDao = database.loggedActivityDao()
+                    var galleryImageDao = database.galleryImageDao()
 
                     // Delete all content here.
-                    loggedActivityDao.deleteAll()
+                    galleryImageDao.deleteAll()
                     // Add sample words.
-                    var activity = LoggedActivity("Hello", "", "")
-                    loggedActivityDao.insert(activity)
-                    activity = LoggedActivity("World", "", "")
-                    loggedActivityDao.insert(activity)
+                    var activity = GalleryImage("Activity date 1", "Name 1", "Path 1")
+                    galleryImageDao.insert(activity)
+                    activity = GalleryImage("Activity date 2", "Name 2", "Path 2")
+                    galleryImageDao.insert(activity)
 
                     // TODO: Add an example activity to immediately display
                 }

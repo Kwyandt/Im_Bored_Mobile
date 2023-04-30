@@ -1,4 +1,5 @@
 /**
+ * @author Sophie Azula, 4/29/23
  * Contain the application scope and database initialization to one instance
  */
 package com.example.imbored
@@ -15,5 +16,5 @@ class ActivitiesApplication: Application() {
     // Using by lazy so the database and the repository are only created when they're needed
     // rather than when the application starts
     val database by lazy {AppDatabase.getDatabase(this, applicationScope) }
-    val repository by lazy{ ActivityRepository(database.loggedActivityDao())}
+    val repository by lazy{ ActivityRepository(database.galleryImageDao())}
 }

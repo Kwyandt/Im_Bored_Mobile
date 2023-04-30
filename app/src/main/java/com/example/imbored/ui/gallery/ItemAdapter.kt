@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imbored.R
 
 /**
- * Adapter for the [RecyclerView] in [MainActivity]. Displays [ActivityPhoto] data object.
+ * Adapter for the [RecyclerView] in [GalleryFragment]. Displays [ActivityPhoto] data object.
  */
 class ItemAdapter(
     private val context: GalleryFragment,

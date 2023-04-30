@@ -3,14 +3,13 @@
  */
 package com.example.imbored.database
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 // Recognize the class is used to define database tables
-@Entity(tableName = "logged_activity_table")
-class LoggedActivity (
+@Entity(tableName = "gallery_image_table")
+class GalleryImage (
     // Primary key to identify the table, using the Date to identify
     // TODO: Date should be to the second to ensure unique ID's
     @PrimaryKey @ColumnInfo (name="activity_date") val activityDate: String,
