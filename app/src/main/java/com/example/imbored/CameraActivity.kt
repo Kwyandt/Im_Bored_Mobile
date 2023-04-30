@@ -1,33 +1,31 @@
 package com.example.imbored
 
 import android.Manifest
+import android.R
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.FallbackStrategy
-import androidx.camera.video.Quality
-import androidx.camera.video.QualitySelector
-import androidx.camera.video.Recorder
-import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import com.example.imbored.databinding.ActivityCameraBinding
-import com.example.imbored.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+
 
 class CameraActivity : AppCompatActivity() {
 
@@ -52,12 +50,39 @@ class CameraActivity : AppCompatActivity() {
         // Set up the listeners for take photo and video capture buttons
         viewBinding.imageCaptureButton2.setOnClickListener { takePhoto() }
         viewBinding.flipCamera2.setOnClickListener {flipView()}
+        viewBinding.imageView2.setOnClickListener{onBackPressed()}
 
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     private var lensFacing = CameraSelector.DEFAULT_FRONT_CAMERA
 
+    override fun onBackPressed() {
+        if (fragmentManager.backStackEntryCount == 0) {
+            finish()
+        } else {
+            super.onBackPressed() //replaced
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home -> {
+                val parentIntent = NavUtils.getParentActivityIntent(this)
+                return if (parentIntent == null) {
+                    finish()
+                    true
+                } else {
+                    parentIntent.flags =
+                        Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    startActivity(parentIntent)
+                    finish()
+                    true
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     private fun flipView() {
         if (lensFacing == CameraSelector.DEFAULT_FRONT_CAMERA) lensFacing = CameraSelector.DEFAULT_BACK_CAMERA;
         else if (lensFacing == CameraSelector.DEFAULT_BACK_CAMERA) lensFacing = CameraSelector.DEFAULT_FRONT_CAMERA;

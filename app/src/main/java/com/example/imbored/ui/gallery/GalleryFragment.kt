@@ -7,15 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imbored.CameraActivity
-import com.example.imbored.CameraFragment
-import com.example.imbored.MainActivity
 import com.example.imbored.databinding.FragmentGalleryBinding
 
 
@@ -64,13 +60,4 @@ class GalleryFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
-
-//i think i no longer need this
-
-private fun FragmentTransaction.replace(
-    galleryFragment: GalleryFragment,
-    cameraFragment: CameraFragment
-): FragmentTransaction {
-    TODO("Not yet implemented")
 }
