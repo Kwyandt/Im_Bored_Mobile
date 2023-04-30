@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_gallery
             )
         )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
+        //allow bottom nav bar to navigate between fragments
         navView.setupWithNavController(navController)
     }
 }

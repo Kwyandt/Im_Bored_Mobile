@@ -5,11 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imbored.HomeViewModel
 import com.example.imbored.databinding.FragmentGalleryBinding
 
 class GalleryFragment : Fragment() {
@@ -23,7 +28,18 @@ class GalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val galleryViewModel =
+            ViewModelProvider(this).get(GalleryViewModel::class.java)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        //UI Bound Object
+
+        val cameraView: ConstraintLayout = binding.cameraButton
+        cameraView.setOnClickListener{
+            //FragmentTransaction
+        }
+
         return binding.root
     }
 

@@ -19,16 +19,6 @@
         app:layout_constraintVertical_bias="0.577" />
 
     <TextView
-        android:id="@+id/subHeaderTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Tap the image to begin!"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pandaImageView" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,13 +36,14 @@
         android:id="@+id/generated_idea_text_view"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/allan"
         android:lineSpacingExtra="10sp"
+        android:text="Tap the image to begin!"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subHeaderTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/pandaImageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
