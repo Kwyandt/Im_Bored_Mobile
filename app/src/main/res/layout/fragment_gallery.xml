@@ -19,9 +19,12 @@
         android:layout_width="77dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="56dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="camera button opens to camera"
+        android:elevation="2dp"
         android:maxWidth="100dp"
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
@@ -31,8 +34,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="407dp"
-        android:layout_height="678dp"
+        android:layout_width="413dp"
+        android:layout_height="728dp"
         android:scrollbars="vertical"
         android:visibility="visible"
         app:layoutManager="LinearLayoutManager"

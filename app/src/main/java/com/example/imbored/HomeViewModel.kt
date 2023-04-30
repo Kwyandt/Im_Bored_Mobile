@@ -4,7 +4,11 @@
  */
 package com.example.imbored
 
+import android.app.Activity
 import android.util.Log
+import android.widget.Toast
+import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
+import androidx.camera.core.impl.utils.ContextUtil.getApplicationFromContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +16,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.imbored.model.CompletionRequest
 import com.example.imbored.network.API
 import kotlinx.coroutines.Dispatchers
+//import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
+
 
 class HomeViewModel : ViewModel() {
     // Variable to hold the Completion answer, as a String
@@ -53,6 +59,7 @@ class HomeViewModel : ViewModel() {
                     }
                 }
             } catch (e: IOException) {
+                //Toast.makeText(CoroutineContext,"Please connect to wifi", Toast.LENGTH_SHORT).show()
                 Log.d("HomeViewModel", "API fail")
             }
         }

@@ -2,23 +2,18 @@ package com.example.imbored.ui.gallery
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imbored.ActivitiesApplication
 import com.example.imbored.CameraActivity
 import com.example.imbored.GalleryViewModel
-import com.example.imbored.database.GalleryImage
 import com.example.imbored.databinding.FragmentGalleryBinding
 import kotlinx.coroutines.launch
 
@@ -70,17 +65,23 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //this calls dataset, needs to be changed to load the database
+        val myDataset = GallerySource().loadImages()
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = GalleryImageListAdapter()
-        recyclerView.adapter = adapter
+        //val adapter = GalleryImageListAdapter(context, myDataset)
+        recyclerView.adapter = context?.let { GalleryImageListAdapter(it, myDataset) }
 
+        recyclerView.setHasFixedSize(true)
         // Submit all of the GalleryImages to the RecyclerView
+        /*
         lifecycle.coroutineScope.launch{
             viewModel.allGalleryImages().collect(){
                 adapter.submitList(it)
             }
         }
+        */
+
     }
 
     override fun onDestroyView() {
