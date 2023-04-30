@@ -1,25 +1,23 @@
 package com.example.imbored.ui.gallery
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imbored.CameraActivity
 import com.example.imbored.CameraFragment
-import com.example.imbored.HomeViewModel
-import com.example.imbored.R
+import com.example.imbored.MainActivity
 import com.example.imbored.databinding.FragmentGalleryBinding
+
 
 class GalleryFragment : Fragment() {
     private var _binding: FragmentGalleryBinding? = null
@@ -39,26 +37,18 @@ class GalleryFragment : Fragment() {
 
         //UI Bound Object
 
-        val cameraView: ConstraintLayout = binding.cameraButton
+
         //not sure if i should use child or parent
         //val fragmentManager = parentFragmentManager
         //pressing camera button opens up the camera activtiy
-        cameraView.setOnClickListener{
-            //FragmentTransaction
-            TODO("Implement camera activity, delete fragments")
-            val cameraFragment = CameraFragment()
-            //fragmentManager.beginTransaction()
-            //    .replace(this, cameraFragment)
-            //    .addToBackStack(null)
-           //     .commit()
-            //childFragmentManager.commit{
-           //     replace(R.id.fragment_container_view, cameraFragment)
-            //setReorderingAllowed(true)
-            //    addToBackStack("GalleryFragment")
-            //}
+
+        val imageButton: ImageButton = binding.imageButton
+        imageButton.setOnClickListener{
+            val intent =  Intent(context, CameraActivity::class.java)
+            startActivity(intent)
         }
 
-        return binding.root
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
