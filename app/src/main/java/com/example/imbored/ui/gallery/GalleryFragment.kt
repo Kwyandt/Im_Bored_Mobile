@@ -45,6 +45,9 @@ class GalleryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /**
+         * TODO: Create a welcome message?
+         */
         arguments?.let {
              var WELCOME_MESSAGE= it.getString(WELCOME_MESSAGE).toString()
         }
@@ -57,15 +60,6 @@ class GalleryFragment : Fragment() {
     ): View? {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
-//        val galleryViewModel =
-//            ViewModelProvider(this)[GalleryViewModel::class.java]
-//        recyclerView = binding.recyclerView
-//
-//        // TODO: Using binding instead, come back if needed
-//        //        recyclerView = binding.recyclerView
-//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        recyclerView.adapter = GalleryImageListAdapter()
-
         val imageButton: ImageButton = binding.imageButton
         imageButton.setOnClickListener{
             val intent =  Intent(context, CameraActivity::class.java)
@@ -76,18 +70,17 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: Moving to onCreate
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = GalleryImageListAdapter()
         recyclerView.adapter = adapter
 
+        // Submit all of the GalleryImages to the RecyclerView
         lifecycle.coroutineScope.launch{
             viewModel.allGalleryImages().collect(){
                 adapter.submitList(it)
             }
         }
-        Log.d("GALLERYFRAGMENT", "onViewCreated: IT'S CREATED ")
     }
 
     override fun onDestroyView() {

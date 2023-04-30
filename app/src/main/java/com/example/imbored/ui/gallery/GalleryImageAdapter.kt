@@ -48,7 +48,6 @@ class GalleryImageListAdapter(): ListAdapter<GalleryImage, GalleryImageListAdapt
             }
         }
     }
-
     class GalleryImageComparator : DiffUtil.ItemCallback<GalleryImage>() {
         override fun areItemsTheSame(oldItem: GalleryImage, newItem: GalleryImage): Boolean {
             return oldItem === newItem

@@ -13,10 +13,31 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(entities = arrayOf(GalleryImage::class), version = 1, exportSchema = false)
-public abstract class AppDatabase :RoomDatabase() {
+    abstract class AppDatabase :RoomDatabase() {
     abstract fun galleryImageDao(): GalleryImageDao
     // Companion object to hold singular instance of database
 
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+        fun getDatabase(
+            context: Context,
+            scope: CoroutineScope
+        ): AppDatabase {
+            // Return existing instance (if it exists)
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "app_database"
+                )
+                    .addCallback(AppDatabaseCallback(scope))
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
     /**
      * Custom implementation of RoomDatabase.Callback()
      * @param scope CoroutineScope of the instance
@@ -44,28 +65,4 @@ public abstract class AppDatabase :RoomDatabase() {
             }
         }
     }
-
-
-        companion object {
-            @Volatile
-            private var INSTANCE: AppDatabase? = null
-
-            fun getDatabase(
-                context: Context,
-                scope: CoroutineScope
-            ): AppDatabase {
-                // Return existing instance (if it exists)
-                return INSTANCE ?: synchronized(this) {
-                    val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java,
-                        "app_database"
-                    )
-                        .addCallback(AppDatabaseCallback(scope))
-                        .build()
-                    INSTANCE = instance
-                    instance
-                }
-            }
-        }
 }
