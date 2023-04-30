@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 
 // Recognize the class is used to define database tables
 @Entity(tableName = "gallery_image_table")
-class GalleryImage (
+data class GalleryImage (
     // Primary key to identify the table, using the Date to identify
     // TODO: Date should be to the second to ensure unique ID's
     @PrimaryKey @ColumnInfo (name="activity_date") val activityDate: String,

@@ -8,66 +8,85 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imbored.ActivitiesApplication
 import com.example.imbored.CameraActivity
-import com.example.imbored.CameraFragment
 import com.example.imbored.GalleryViewModel
+import com.example.imbored.database.GalleryImage
 import com.example.imbored.databinding.FragmentGalleryBinding
+import kotlinx.coroutines.launch
 
 
 class GalleryFragment : Fragment() {
+
+    companion object {
+        var WELCOME_MESSAGE = "HI THERE (Gallery Fragment)"
+    }
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
+//    //TODO: remove hard coded data
+//    // hardcoding data for now
+//    val myDataset = listOf<GalleryImage>(
+//        GalleryImage("Date 1", "Name 1", "Path 1")
+//    )
+    private val viewModel: GalleryViewModel by activityViewModels {
+        GalleryViewModel.GalleryViewModelFactory(
+            (activity?.application as ActivitiesApplication).database.galleryImageDao()
+        )
+}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+             var WELCOME_MESSAGE= it.getString(WELCOME_MESSAGE).toString()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val galleryViewModel =
-            ViewModelProvider(this)[GalleryViewModel::class.java]
-
+    ): View? {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        recyclerView = binding.recyclerView
 
-        // TODO: Using binding instead, come back if needed
-        //        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = GalleryImageListAdapter()
-        recyclerView.adapter = adapter
-
-//        val view: View = inflater.inflate(R.layout.fragment_gallery,container, false)
-//        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-//        recyclerView.layoutManager = LinearLayoutManager(view.context)
-
-        //UI Bound Object
-
-
-        //not sure if i should use child or parent
-        //val fragmentManager = parentFragmentManager
-        //pressing camera button opens up the camera activtiy
+//        val galleryViewModel =
+//            ViewModelProvider(this)[GalleryViewModel::class.java]
+//        recyclerView = binding.recyclerView
+//
+//        // TODO: Using binding instead, come back if needed
+//        //        recyclerView = binding.recyclerView
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        recyclerView.adapter = GalleryImageListAdapter()
 
         val imageButton: ImageButton = binding.imageButton
         imageButton.setOnClickListener{
             val intent =  Intent(context, CameraActivity::class.java)
             startActivity(intent)
         }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // TODO: Moving to onCreate
-////        recyclerView = binding.recyclerView
-//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        val adapter = LoggedActivityListAdapter()
-//        recyclerView.adapter = adapter
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = GalleryImageListAdapter()
+        recyclerView.adapter = adapter
+
+        lifecycle.coroutineScope.launch{
+            viewModel.allGalleryImages().collect(){
+                adapter.submitList(it)
+            }
+        }
         Log.d("GALLERYFRAGMENT", "onViewCreated: IT'S CREATED ")
     }
 
